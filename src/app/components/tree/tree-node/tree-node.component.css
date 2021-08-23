@@ -1,0 +1,56 @@
+
+.node-container .node-details {
+  text-decoration: none;
+  cursor: pointer;
+  padding: 5px 0;
+  align-items: center;
+  display: inline-flex;
+  flex-direction: row;
+}
+
+.node-container .node-details.disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+
+.node-container .node-details .node-content {
+  display: grid;
+  grid-template-columns: 15px auto;
+  grid-column-gap: 5px;
+  margin-left: 10px;
+}
+
+.node-container .node-details .expand-icon {
+  width: 10px;
+}
+
+.node-container .node-details .expand-icon i {
+  margin: 0 auto;
+  color: rgb(132, 132, 132);
+}
+
+.node-container .node-details .expand-icon i.expanded {
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+  transform: rotate(90deg);
+}
+
+.node-container .children-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  padding-left: 22px;
+}
+
+.node-container .node-details .node-name {
+  vertical-align: middle;
+  color: black;
+}
+
+.node-container .node-details .node-icon {
+}
+
+.node-container .node-details .node-name.selected {
+  font-weight: bold;
+}

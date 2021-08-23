@@ -1,0 +1,6 @@
+<ul class="tree-list">
+  <li *ngFor="let treeNode of treeRootsList">
+    <app-tree-node [currentTreeNode]="treeNode" (nodeSelect)="onNodeSelect($event)"
+                   (nodeExpand)="onNodeExpand($event)"></app-tree-node>
+  </li>
+</ul>

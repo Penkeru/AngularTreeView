@@ -1,0 +1,8 @@
+.tree-list {
+  padding: 0;
+  margin: 0;
+}
+
+.tree-list li {
+  list-style-type: none;
+}

@@ -1,0 +1,14 @@
+.app-container {
+  display: grid;
+  grid-template-columns: 500px auto;
+  grid-column-gap: 10px;
+  height: 100%;
+
+}
+
+.left-side {
+  padding: 10px;
+  display: inline-block;
+  border: 1px solid black;
+  height: 100%;
+}

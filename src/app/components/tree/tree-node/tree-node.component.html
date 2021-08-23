@@ -1,0 +1,25 @@
+<div class="node-container" *ngIf="currentTreeNode">
+  <div class="node-details" (click)="nodeSelect.emit(currentTreeNode)"
+       [ngClass]="{'disabled': currentTreeNode.disabled}">
+    <div class="expand-icon">
+      <i *ngIf="!currentTreeNode.isLeaf" class="fa fa-chevron-right" [ngClass]="{'expanded': currentTreeNode.expanded}"
+         (click)="nodeExpand.emit({currentExpandNode:currentTreeNode, event: $event})"></i>
+    </div>
+    <div class="node-content">
+      <i class="node-icon fa fa-{{currentTreeNode.nodeIcon}}" [ngClass]="{'leaf': currentTreeNode.isLeaf}"></i>
+      <div class="node-name" [ngClass]="{'selected': currentTreeNode.selected}">
+        <span>{{currentTreeNode.nodeDisplayName}}</span>
+      </div>
+    </div>
+  </div>
+  <ul class="children-list" *ngIf="!currentTreeNode.isLeaf && currentTreeNode.expanded">
+    <ng-container *ngFor="let childTreeNode of currentTreeNode.children">
+      <li>
+        <app-tree-node [currentTreeNode]="childTreeNode" (nodeSelect)="nodeSelect.emit($event)"
+                       (nodeExpand)="nodeExpand.emit($event)"></app-tree-node>
+      </li>
+    </ng-container>
+  </ul>
+</div>
+
+
