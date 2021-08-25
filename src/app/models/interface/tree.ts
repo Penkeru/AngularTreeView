@@ -1,21 +1,21 @@
 import {IconNames} from '../enums/icon-names.enum';
-import {EntityTypeEnum} from '../enums/entity-type.enum';
+import {EntityTypeEnum, IEntity} from './IEntity';
 
 
 export interface ITreeNode {
-  data?: any;
-  parent?: ITreeNode;
+  data: IEntity;
+  parent: ITreeNode;
   children?: Array<ITreeNode>;
-  nodeDisplayName?: string;
+  nodeDisplayName: string;
   nodeIcon?: IconNames;
-  type?: EntityTypeEnum;
-  isLeaf?: boolean;
-  expanded?: boolean;
-  disabled?: boolean;
-  selected?: boolean;
+  type: EntityTypeEnum;
+  isLeaf: boolean;
+  expanded: boolean;
+  disabled: boolean;
+  selected: boolean;
 }
 
-export type ITree = ITreeNode[];
+
 
 
 export interface ExpandEvent {

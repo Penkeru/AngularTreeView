@@ -1,52 +1,34 @@
-import {Component} from '@angular/core';
-import {ITree, ITreeNode} from './models/interface/tree';
+import {Component, OnInit} from '@angular/core';
+import {ITreeNode} from './models/interface/tree';
 import {DatabaseService} from './services/database.service';
-import {IconNames} from './models/enums/icon-names.enum';
+
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
-  public treeRootsList: ITree;
+export class AppComponent implements OnInit {
+  public treeRootsList: ITreeNode[];
   public currentSelectedNode: ITreeNode;
   public currentExpandedNode: ITreeNode;
 
   constructor(private databaseService: DatabaseService) {
-    this.treeRootsList = [
-      {
-        nodeDisplayName: 'something',
-        nodeIcon: IconNames.Database,
-        disabled: true,
-        expanded: false, children: [
-          {
-            expanded: false,
-            nodeDisplayName: 'something1',
-          },
-          {
-            expanded: false,
-            nodeDisplayName: 'something2',
-            isLeaf: true,
-          }
-        ]
-      },
-      {
-        nodeDisplayName: 'something',
-        nodeIcon: IconNames.Database,
-        expanded: false, children: [
-          {
-            expanded: false,
-            nodeDisplayName: 'something1',
-          },
-          {
-            expanded: false,
-            nodeDisplayName: 'something2',
-            isLeaf: true
-          }
-        ]
+
+  }
+
+  ngOnInit(): void {
+    this.getCurrentNodeChildren();
+  }
+
+  public getCurrentNodeChildren(treeNode?: ITreeNode) {
+    this.databaseService.fetchCurrentNodeChildren(treeNode).subscribe((treeNodeList: ITreeNode[]) => {
+      if (treeNode) {
+        treeNode.children = treeNodeList;
+      } else {
+        this.treeRootsList = treeNodeList;
       }
-    ];
+    });
   }
 
   public onSelectedNode(selectedNode: ITreeNode): void {
@@ -55,5 +37,6 @@ export class AppComponent {
 
   public onExpandNode(expandedNode: ITreeNode): void {
     this.currentExpandedNode = expandedNode;
+    this.getCurrentNodeChildren(expandedNode);
   }
 }
