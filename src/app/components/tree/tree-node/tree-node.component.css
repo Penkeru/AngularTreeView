@@ -10,7 +10,6 @@
 
 .node-container .node-details.disabled {
   opacity: 0.5;
-  pointer-events: none;
 }
 
 

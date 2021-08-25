@@ -5,7 +5,8 @@ import {ITreeNode} from '../models/interface/tree';
 import {map} from 'rxjs/operators';
 import {TreeNode} from '../models/classes/tree-node';
 import {EntityTypeEnum, IEntity} from '../models/interface/IEntity';
-import {ConnectionType, Database, DatabaseType, DBTables, Schema, TableColumns} from '../models/interface/database';
+import {ConnectionType, Database, DBTables, Schema, TableColumns} from '../models/interface/database';
+import {MockDataUtils} from '../utils/mock-data-utils';
 
 interface IDatabaseApiMapper {
   [key: string]: any;
@@ -27,107 +28,23 @@ export class DatabaseService {
   }
 
   private getConnectionTypesList(): Observable<ConnectionType[]> {
-    return of([
-      {
-        name: 'PostgresSQL1',
-        id: 1,
-        permission: UserPermissionEnum.Admin,
-        type: EntityTypeEnum.Connection,
-        ip: '1.122.21.10',
-        port: 2232,
-        numberOfDatabases: 3
-      },
-      {
-        name: 'PostgresSQL2',
-        id: 2,
-        permission: UserPermissionEnum.Admin,
-        type: EntityTypeEnum.Connection,
-        ip: '1.122.21.11',
-        port: 2232,
-        numberOfDatabases: 0
-      }, {
-        name: 'SQLServer1',
-        id: 3,
-        permission: UserPermissionEnum.Admin,
-        type: EntityTypeEnum.Connection,
-        ip: '1.122.21.12',
-        port: 2232,
-        numberOfDatabases: 3
-      }]);
+    return of(MockDataUtils.connectionsList);
   }
 
   private getDatabasesList(connectionId: number): Observable<Database[]> {
-    let observable: Observable<Database[]> = null;
-    if (connectionId === 1) {
-      observable = of([
-        {
-          name: 'playground_temp_base11',
-          id: 11,
-          permission: UserPermissionEnum.Admin,
-          type: EntityTypeEnum.Database,
-          databaseType: DatabaseType.SQL,
-          numberOfSchemas: 1
-        },
-        {
-          name: 'playground_temp_base12',
-          id: 12,
-          permission: UserPermissionEnum.Admin,
-          type: EntityTypeEnum.Database,
-          databaseType: DatabaseType.SQL,
-          numberOfSchemas: 5
-        },
-        {
-          name: 'playground_temp_base13',
-          id: 13,
-          permission: UserPermissionEnum.Admin,
-          type: EntityTypeEnum.Database,
-          databaseType: DatabaseType.SQL,
-          numberOfSchemas: 0
-        }
-      ]);
-    } else if (connectionId === 2) {
-      observable = of([]);
-    } else if (connectionId === 3) {
-      observable = of([
-        {
-          name: 'postgis31',
-          id: 31,
-          permission: UserPermissionEnum.Admin,
-          type: EntityTypeEnum.Database,
-          databaseType: DatabaseType.NoSQL,
-          numberOfSchemas: 1
-        },
-        {
-          name: 'postgis32',
-          id: 32,
-          permission: UserPermissionEnum.Admin,
-          type: EntityTypeEnum.Database,
-          databaseType: DatabaseType.NoSQL,
-          numberOfSchemas: 5
-        },
-        {
-          name: 'postgis33',
-          id: 33,
-          permission: UserPermissionEnum.None,
-          type: EntityTypeEnum.Database,
-          databaseType: DatabaseType.NoSQL,
-          numberOfSchemas: 0
-        }
-      ]);
-    }
-    return observable;
+    return of(MockDataUtils.DatabaseMap[connectionId]);
   }
 
   private getSchemasList(databaseId: number): Observable<Schema[]> {
-    return of();
+    return of(MockDataUtils.SchemeMap[databaseId]);
   }
 
   private getTablesList(schemaId: number): Observable<DBTables[]> {
-    return of();
+    return of(MockDataUtils.tableMockMap[schemaId]);
   }
 
   public getTablesColumns(tableId: number): Observable<TableColumns[]> {
-    return of();
+    return of(MockDataUtils.tableColumnsMap[tableId]);
   }
 
   public fetchCurrentNodeChildren(expandedNode?: ITreeNode): Observable<ITreeNode[]> {

@@ -19,7 +19,8 @@ export class TreeNode implements ITreeNode {
     this.parent = parent;
     this.type = data.type;
     this.nodeDisplayName = data.name;
-    this.isLeaf = data[EntityTypeToChildCounterField.get(this.type)] === 0;
+    const entityChildCounter = data[EntityTypeToChildCounterField.get(this.type)];
+    this.isLeaf = typeof entityChildCounter !== 'undefined' ? entityChildCounter === 0 : true;
     this.expanded = false;
     this.selected = false;
     this.nodeIcon = EntityToIconMapper.get(this.type);

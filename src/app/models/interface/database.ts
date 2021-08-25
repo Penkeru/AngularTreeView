@@ -19,16 +19,27 @@ export interface Database extends IEntity {
 }
 
 export interface Schema extends IEntity {
-
+  type: EntityTypeEnum.Schema;
+  numberOfTables: number;
 }
 
 
 export interface DBTables extends IEntity {
+  type: EntityTypeEnum.Table;
+  numberOfColumns: number;
+}
 
+export enum TableColumnType {
+  Number = 'int',
+  String = 'string',
+  Boolean = 'boolean'
 }
 
 export interface TableColumns extends IEntity {
-
+  type: EntityTypeEnum.Column;
+  fieldName: string;
+  required: boolean;
+  fieldType: TableColumnType;
 }
 
 
